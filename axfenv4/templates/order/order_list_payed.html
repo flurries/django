@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div>
+    <a href="{% url 'users:mine' %}" style="float:right; font-size:50px; margin-top: 0px">></a>
+    <h3 style="float:left;">待收货列表</h3>
+</div>
+<div style="float: left; width: 100%">
+    <ul>
+        <!--订单展示-->
+        {% for order in orders %}
+
+            <li>
+               待收货订单{{ forloop.counter }}
+                <a href="#">
+                   {% for goods in order.ordergoodsmodel_set.all %}
+                    <p><!-- 订单id --></p>
+                    <p><!-- 数量 --></p>
+                        <!--展示商品的名称-->
+                        <li>
+                            <img style="width: 50px;height: 50px" src="{{ goods.goods.productimg }}" alt="">
+                            <span> {{ goods.goods_num }}</span>
+                            <span>{{ goods.goods.productname }}</span><br><br>
+                        </li>
+                        <!--处理结束-->
+                   {% endfor %}
+                </a>
+
+            </li>
+        <!--订单处理结束-->
+        {% endfor %}
+    </ul>
+
+</div>
+{% endblock %}

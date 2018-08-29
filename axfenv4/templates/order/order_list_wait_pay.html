@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div>
+    <a href="{% url 'users:mine' %}" style="float:right; font-size:50px; margin-top: 0px">></a>
+    <h3 style="float:left;">待付款订单列表</h3>
+</div>
+<div style="float: left; width: 100%">
+    <ul>
+        <!--订单信息展示-->
+
+        {% for order in orders %}
+            <li style="background-color:cyan;">
+                <a style=""  href=" {% url 'home:order_info' %}?order_id={{ order.o_num }} ">
+                未处理订单{{ forloop.counter }}<br>
+                编号{{ order.o_num }}
+                    {% for goods in order.ordergoodsmodel_set.all %}
+                    <p><!-- 订单id --></p>
+                    <p><!-- 数量 --></p>
+                        <!--展示商品的名称-->
+                        <li >
+                            <img style="width: 50px;height: 50px" src="{{ goods.goods.productimg }}" alt="">
+                              <span style="color: #5bc0de"> {{ goods.goods.price }}* {{ goods.goods_num }}</span><br>
+                            <span>{{ goods.goods.productname }}</span><br><br>
+                        </li>
+                        <!--处理结束-->
+                        {% endfor %}
+                </a>
+            </li>
+            <hr>
+        <!--订单处理结束-->
+         {% endfor %}
+
+
+    </ul>
+
+</div>
+{% endblock %}

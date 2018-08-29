@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block EXTJS %}
+    <script type="text/javascript" src="{% static 'app/order/js/order.js' %}"></script>
+    <script>
+        function order_pay(order_id){
+            $.post('/home/order_pay/',{'order_id':order_id},function(data){
+                console.log(data)
+               if (data.code == '200'){
+                      location.href='/users/mine/'
+                }
+
+            })
+
+        }
+        function home(){
+            location.href='/home/home/'
+        }
+
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <div id="order_info" class="container">
+
+    <!--订单编号-->
+    <h3>订单编号:{{ order_id }}</h3>
+    <!--处理结束-->
+    <ul>
+        {% for good in goods %}
+        <!--所有订单信息展示-->
+              <img style="width: 50px; height: 50px" src="{{ good.goods.productimg}}">
+            <li>
+                <!--商品名称展示-->
+                <span>{{ good.goods.productname }} </span>
+                <span> {{ good.goods_num }}</span>
+            </li>
+
+        {% endfor %}
+        <!--订单处理结束-->
+
+    </ul>
+
+        <!--订单id展示-->
+        <h3 style="color: red">总价:{{ money }}</h3>
+        <button onclick="order_pay('{{ order_id }}')">支付</button>
+         <button onclick="home()">稍后支付</button>
+
+    </div>
+
+
+{% endblock %}
