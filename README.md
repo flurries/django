@@ -1,2 +1,2 @@
 # django_axf
-练手
+手机商城Django
