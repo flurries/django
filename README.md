@@ -1,2 +1,2 @@
-# django_axf
+# django
 手机商城Django
